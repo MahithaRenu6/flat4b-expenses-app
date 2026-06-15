@@ -4,9 +4,20 @@ const fs = require('fs');
 const bcrypt = require('bcryptjs');
 
 // Allow override of data directory (useful for persistent disks on hosts like Render)
-const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../../data');
+let DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../../data');
+try {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+} catch (err) {
+  if (process.env.DATA_DIR) {
+    console.warn(`Warning: Failed to create DATA_DIR (${process.env.DATA_DIR}): ${err.message}. Falling back to local directory.`);
+    DATA_DIR = path.join(__dirname, '../../data');
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  } else {
+    throw err;
+  }
+}
 const DB_PATH = path.join(DATA_DIR, 'expenses.db');
-fs.mkdirSync(DATA_DIR, { recursive: true });
+
 
 const db = new DatabaseSync(DB_PATH);
 
