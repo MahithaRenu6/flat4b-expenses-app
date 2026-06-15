@@ -1,0 +1,5 @@
+# Vercel environment variables example
+# Copy these into the Vercel Project Settings → Environment Variables
+
+# Backend base URL (no trailing slash). Example: https://flatmate-backend.onrender.com
+REACT_APP_API_URL=https://<your-backend-service>.onrender.com

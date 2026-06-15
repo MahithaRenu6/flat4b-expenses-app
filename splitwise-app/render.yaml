@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: flatmate-expenses-backend
+    env: node
+    plan: starter
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: JWT_SECRET
+      - key: DATA_DIR
+        value: /data
+    persistentDisk:
+      name: flatmate-backend-data
+      mountPath: /data
+      sizeGb: 10

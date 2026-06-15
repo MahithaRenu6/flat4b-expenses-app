@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 
-const API = '';
+const API = process.env.REACT_APP_API_URL || '';
 function api(path, opts = {}) {
   const token = localStorage.getItem('token');
   return fetch(API + '/api' + path, {

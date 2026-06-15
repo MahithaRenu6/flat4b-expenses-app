@@ -3,8 +3,10 @@ const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 
-const DB_PATH = path.join(__dirname, '../../data/expenses.db');
-fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
+// Allow override of data directory (useful for persistent disks on hosts like Render)
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../../data');
+const DB_PATH = path.join(DATA_DIR, 'expenses.db');
+fs.mkdirSync(DATA_DIR, { recursive: true });
 
 const db = new DatabaseSync(DB_PATH);
 
